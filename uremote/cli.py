@@ -148,6 +148,48 @@ def cmd_manual(args):
         os.startfile(ruta)
 
 
+def cmd_guion(args):
+    from uremote.core import guion
+    if args.numero is None:
+        for n, e in sorted(guion.cargar(args.archivo).items()):
+            nota = f"  // {e['nota']}" if e["nota"] else ""
+            print(f"  {n}: \"{e['frase']}\"{nota}")
+    else:
+        print(guion.correr(args.archivo, args.numero, args.tv))
+
+
+def cmd_agenda(args):
+    from uremote.core import agenda
+    if args.accion == "lista" or args.accion is None:
+        for e in agenda.lista():
+            estado = "⏸" if e["pausada"] else "●"
+            print(f"  {estado} [{e['id']}] {e['hora']} {e['dias']:<10} "
+                  f"{e['modo']:<9} {e['accion']}")
+        if not agenda.lista():
+            print("agenda vacía; usa: uremote agenda agregar HH:MM --hacer \"...\"")
+    elif args.accion == "agregar":
+        nid = agenda.agregar(args.hora, args.hacer, dias=args.dias, tv=args.tv,
+                             modo="confirmar" if args.confirmar else "solo",
+                             anunciar=args.anunciar,
+                             notificar=not args.sin_notificar)
+        print(f"programada [{nid}]: {args.hora} {args.dias} -> {args.hacer}")
+    elif args.accion == "quitar":
+        agenda.quitar(args.hora)  # aquí el 2o arg es el id
+        print("quitada")
+    elif args.accion == "pausar":
+        print(agenda.pausar(args.hora))
+    elif args.accion == "tick":
+        agenda.tick()
+    elif args.accion == "instalar":
+        print(f"tarea de Windows registrada: {agenda.instalar()} (cada minuto)")
+    elif args.accion == "desinstalar":
+        agenda.desinstalar()
+        print("tarea quitada")
+    elif args.accion == "log":
+        if agenda.LOG.exists():
+            print(agenda.LOG.read_text(encoding="utf-8"), end="")
+
+
 def cmd_voz(args):
     from voz.__main__ import main as voz_main
     voz_main(args.resto or ["-h"])
@@ -231,6 +273,24 @@ def main():
     p.add_argument("--abrir", action="store_true")
     p.add_argument("--forzar", action="store_true", help="re-descargar")
     p.add_argument("-a", "--carpeta", help="carpeta destino (default: manuales/)")
+
+    p = sub.add_parser("guion", help="txt con comandos de voz numerados")
+    p.add_argument("archivo")
+    p.add_argument("numero", nargs="?", type=int, help="vacío = listar el menú")
+    p.add_argument("--tv")
+
+    p = sub.add_parser("agenda", help="programa comandos por hora/días")
+    p.add_argument("accion", nargs="?",
+                   choices=["lista", "agregar", "quitar", "pausar", "tick",
+                            "instalar", "desinstalar", "log"])
+    p.add_argument("hora", nargs="?", help="HH:MM (o id en quitar/pausar)")
+    p.add_argument("--hacer", help='frase o "guion archivo N"')
+    p.add_argument("--dias", default="diario", help="diario | lun-vie | sab,dom")
+    p.add_argument("--tv")
+    p.add_argument("--confirmar", action="store_true",
+                   help="pedir ventanita antes de ejecutar (60s o se cancela)")
+    p.add_argument("--anunciar", action="store_true", help="Sabina lo anuncia")
+    p.add_argument("--sin-notificar", action="store_true")
 
     p = sub.add_parser("voz", help="control por voz y lectura de txt (ver: uremote voz -h)")
     p.add_argument("resto", nargs=argparse.REMAINDER)

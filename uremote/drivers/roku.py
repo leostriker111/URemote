@@ -31,6 +31,13 @@ class Driver(Base):
         for letra in texto:
             self._post(f"/keypress/Lit_{urllib.parse.quote(letra)}")
 
+    def buscar(self, titulo, proveedor_id=""):
+        """Búsqueda ECP: encuentra el título y lanza el primer resultado."""
+        params = {"keyword": titulo, "launch": "true", "match-any": "true"}
+        if proveedor_id:
+            params["provider-id"] = proveedor_id
+        self._post("/search/browse?" + urllib.parse.urlencode(params))
+
     def lanzar(self, app_id, contenido="", tipo=""):
         ruta = f"/launch/{app_id}"
         params = {}

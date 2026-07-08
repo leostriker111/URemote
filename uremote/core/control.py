@@ -44,6 +44,13 @@ def abrir_app(nombre_tv, app: str, contenido: str = "", tipo: str = "") -> str:
     return f"{nombre} <- app {app}" + (f" ({contenido})" if contenido else "")
 
 
+def buscar_titulo(nombre_tv, titulo: str, app: str = "") -> str:
+    nombre, perfil, driver = _driver(nombre_tv)
+    proveedor = perfil.get("apps", {}).get(app.lower(), "") if app else ""
+    driver.buscar(titulo, proveedor)
+    return f"{nombre} <- buscar '{titulo}'" + (f" en {app}" if app else "")
+
+
 def consultar(nombre_tv) -> dict:
     nombre, _, driver = _driver(nombre_tv)
     return state.fusionar_vivo(nombre, driver.consultar())

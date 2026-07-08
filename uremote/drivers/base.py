@@ -21,3 +21,7 @@ class Base:
     def lanzar(self, app_id: str, contenido: str = "", tipo: str = ""):
         """Abre una app (y opcionalmente un título directo) si la marca puede."""
         raise ValueError(f"{self.perfil['_nombre']} no soporta lanzar apps")
+
+    def buscar(self, titulo: str, proveedor_id: str = ""):
+        """Busca un título y lo reproduce si la marca puede."""
+        raise ValueError(f"{self.perfil['_nombre']} no soporta buscar títulos")
