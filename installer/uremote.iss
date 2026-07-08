@@ -1,5 +1,5 @@
 ; Inno Setup — instala uremote.exe y agrega el PATH del usuario.
-#define Version "0.2.0"
+#define Version "0.3.0"
 
 [Setup]
 AppName=uremote
