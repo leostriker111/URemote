@@ -5,6 +5,7 @@ equivalente en la consola integrada, donde también se puede teclear."""
 import os
 import threading
 import tkinter as tk
+from pathlib import Path
 from tkinter import ttk
 
 from uremote import theme
@@ -40,6 +41,8 @@ class App:
         ttk.Button(barra, text="enlazar", command=self._enlazar).pack(side="left", padx=4)
         ttk.Button(barra, text="manual", command=self._manual).pack(side="left")
         ttk.Button(barra, text="macro ▶", command=self._correr_macro).pack(side="left")
+        ttk.Button(barra, text="guion", command=self._abrir_guion).pack(side="left", padx=4)
+        ttk.Button(barra, text="agenda", command=self._abrir_agenda).pack(side="left")
         self.btn_rec = tk.Button(barra, text="● rec", fg=theme.REC_OFF,
                                  relief="flat", bg=theme.FONDO,
                                  activebackground=theme.FONDO,
@@ -142,14 +145,14 @@ class App:
 
         def trabajo():
             try:
-                if partes[0] in ("mandar", "texto"):
+                if partes[0] in ("mandar", "texto", "app"):
                     control.ejecutar_linea(partes, self._tv_actual())
                     self.raiz.after(0, lambda: self.eco("ok"))
                 elif partes[0] == "espera":
                     import time
                     time.sleep(float(partes[1]))
                 else:
-                    raise ValueError("aquí sólo: mandar / texto / espera")
+                    raise ValueError("aquí sólo: mandar / texto / app / espera")
             except Exception as e:
                 msg = f"error: {e}"
                 self.raiz.after(0, lambda m=msg: self.eco(m, "err"))
@@ -250,6 +253,103 @@ class App:
         self._recargar_tvs()
         self.combo_tv.set(nombre)
         self._cambiar_tv()
+
+    def _abrir_guion(self):
+        """Elige un txt de guion y muestra sus comandos como botones."""
+        from tkinter import filedialog
+        from uremote.core import guion
+        ruta = filedialog.askopenfilename(
+            title="abrir guion", filetypes=[("guiones", "*.txt")],
+            initialdir=str(Path.home() / "Downloads"))
+        if not ruta:
+            return
+        try:
+            entradas = guion.cargar(ruta)
+        except ValueError as e:
+            self.eco(f"error: {e}", "err")
+            return
+        dialogo = tk.Toplevel(self.raiz)
+        dialogo.title(Path(ruta).name)
+        dialogo.configure(bg=theme.FONDO)
+        for n, e in sorted(entradas.items()):
+            fila = tk.Frame(dialogo, bg=theme.FONDO)
+            fila.pack(fill="x", padx=10, pady=3)
+            ttk.Button(fila, text=str(n), width=3,
+                       command=lambda n=n: self._correr_guion(ruta, n)
+                       ).pack(side="left")
+            texto = f'"{e["frase"]}"'
+            if e["nota"]:
+                texto += f"\n{e['nota']}"
+            tk.Label(fila, text=texto, bg=theme.FONDO, fg=theme.BTN_FG,
+                     justify="left", wraplength=380,
+                     font=("Segoe UI", 9)).pack(side="left", padx=8)
+
+    def _correr_guion(self, ruta, n):
+        from uremote.core import guion
+        tv = self._tv_actual()
+        self.eco(f"> uremote guion \"{Path(ruta).name}\" {n} --tv {tv}", "eco")
+
+        def trabajo():
+            try:
+                r = guion.correr(ruta, n, tv)
+                self.raiz.after(0, lambda: self.eco(r))
+            except Exception as e:
+                msg = f"error: {e}"
+                self.raiz.after(0, lambda m=msg: self.eco(m, "err"))
+        self._en_hilo(trabajo)
+
+    def _abrir_agenda(self):
+        from uremote.core import agenda
+        dialogo = tk.Toplevel(self.raiz)
+        dialogo.title("agenda")
+        dialogo.configure(bg=theme.FONDO)
+
+        def repintar():
+            for hijo in dialogo.winfo_children():
+                hijo.destroy()
+            for e in agenda.lista():
+                fila = tk.Frame(dialogo, bg=theme.FONDO)
+                fila.pack(fill="x", padx=10, pady=2)
+                icono = "⏸" if e["pausada"] else "●"
+                tk.Label(fila, text=f"{icono} {e['hora']} {e['dias']} · "
+                         f"{e['modo']} · {e['accion']}",
+                         bg=theme.FONDO, fg=theme.BTN_FG,
+                         font=("Segoe UI", 9)).pack(side="left")
+                ttk.Button(fila, text="✕", width=3,
+                           command=lambda i=e["id"]: (agenda.quitar(i), repintar())
+                           ).pack(side="right")
+                ttk.Button(fila, text="⏸/▶", width=4,
+                           command=lambda i=e["id"]: (agenda.pausar(i), repintar())
+                           ).pack(side="right", padx=3)
+            if not agenda.lista():
+                tk.Label(dialogo, text="agenda vacía", bg=theme.FONDO,
+                         fg=theme.SECCION_FG).pack(padx=10, pady=4)
+            forma = tk.Frame(dialogo, bg=theme.FONDO)
+            forma.pack(fill="x", padx=10, pady=8)
+            hora = tk.Entry(forma, width=6)
+            hora.insert(0, "20:00")
+            dias = tk.Entry(forma, width=8)
+            dias.insert(0, "diario")
+            accion = tk.Entry(forma, width=28)
+            accion.insert(0, "reproduce en netflix ...")
+            confirmar = tk.BooleanVar()
+            for w in (hora, dias, accion):
+                w.pack(side="left", padx=2)
+            tk.Checkbutton(forma, text="confirmar", variable=confirmar,
+                           bg=theme.FONDO).pack(side="left")
+
+            def agregar():
+                try:
+                    agenda.agregar(hora.get(), accion.get(), dias=dias.get(),
+                                   tv=self._tv_actual(),
+                                   modo="confirmar" if confirmar.get() else "solo")
+                    self.eco(f"> uremote agenda agregar {hora.get()} "
+                             f"--dias {dias.get()} --hacer \"{accion.get()}\"", "eco")
+                    repintar()
+                except ValueError as e:
+                    self.eco(f"error: {e}", "err")
+            ttk.Button(forma, text="＋", width=3, command=agregar).pack(side="left", padx=3)
+        repintar()
 
     def _manual(self):
         tv = self._tv_actual()
