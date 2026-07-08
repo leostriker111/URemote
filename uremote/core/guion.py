@@ -7,7 +7,7 @@
 
 import re
 
-from uremote.core import intents
+from uremote.core import control
 
 _ENTRADA = re.compile(r'^\s*(\d+)\s*"(.+?)"\s*;?\s*$')
 
@@ -34,4 +34,4 @@ def correr(ruta, numero: int, tv=None) -> str:
     entradas = cargar(ruta)
     if numero not in entradas:
         raise ValueError(f"no hay comando {numero} (hay: {sorted(entradas)})")
-    return intents.interpretar(entradas[numero]["frase"], tv)
+    return control.frase(tv, entradas[numero]["frase"])

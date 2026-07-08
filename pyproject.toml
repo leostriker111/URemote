@@ -4,19 +4,24 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "uremote"
-version = "0.3.1"
+version = "0.4.0"
 description = "Control remoto universal para smart TVs por WiFi — CLI + GUI, sin dependencias"
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT" }
 authors = [{ name = "Leostriker" }]
-keywords = ["remote", "tv", "roku", "viera", "panasonic", "androidtv", "upnp"]
+keywords = ["remote", "tv", "roku", "viera", "panasonic", "androidtv",
+            "samsung", "tizen", "lg", "webos", "upnp"]
 classifiers = [
     "Environment :: Console",
     "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python :: 3",
     "Topic :: Home Automation",
 ]
+
+[project.optional-dependencies]
+samsung = ["websocket-client"]
+lg = ["websocket-client"]
 
 [project.urls]
 Repositorio = "https://github.com/leostriker111/uremote"
@@ -26,8 +31,8 @@ uremote = "uremote.cli:main"
 manualhunt = "manualhunt.__main__:main"
 
 [tool.setuptools]
-packages = ["uremote", "uremote.core", "uremote.drivers", "uremote.gui",
-            "manualhunt", "voz"]
+packages = ["uremote", "uremote.core", "uremote.condiciones",
+            "uremote.drivers", "uremote.gui", "manualhunt", "voz"]
 
 [tool.setuptools.package-data]
 uremote = ["profiles/*.json"]

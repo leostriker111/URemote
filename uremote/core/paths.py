@@ -9,6 +9,7 @@ BASE = RAIZ if _PORTABLE else Path.home() / ".uremote"
 
 PERFILES = Path(__file__).resolve().parents[1] / "profiles"
 CONFIG = BASE / "config"
+PERFILES_USUARIO = CONFIG / "perfiles"  # JSONs propios, pisan a los del paquete
 MACROS = BASE / "macros"
 ESTADOS = BASE / "estados"
 MANUALES = BASE / "manuales"

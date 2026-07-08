@@ -23,6 +23,10 @@ def _adivinar_perfil(respuesta: str) -> str:
         return "panasonic_viera"
     if "roku" in r:
         return "roku"
+    if "samsung" in r or "tizen" in r:
+        return "samsung_tizen"
+    if "webos" in r or "lg electronics" in r or "lge" in r:
+        return "lg_webos"
     if "dial" in r or "android" in r or "bravia" in r:
         return "androidtv"
     return "?"

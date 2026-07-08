@@ -50,6 +50,10 @@ class Driver(Base):
     def escribir(self, texto):
         self._correr("shell", "input", "text", texto.replace(" ", "%s"))
 
+    def frase(self, texto):
+        self._correr("shell", "am", "start", "-a",
+                     "android.search.action.GLOBAL_SEARCH", "-e", "query", texto)
+
     def consultar(self):
         try:
             salida = self._correr("shell", "dumpsys", "window", "displays")

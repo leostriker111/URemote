@@ -235,7 +235,8 @@ class App:
                 boton.pack(side="right", padx=6)
             if otros:
                 tk.Label(dialogo, text="otros (sin perfil conocido): "
-                         + ", ".join(t["ip"] for t in otros),
+                         + ", ".join(t["ip"] for t in otros)
+                         + "\n(un JSON en config/perfiles/ agrega la marca)",
                          bg=theme.FONDO, fg=theme.SECCION_FG,
                          font=("Segoe UI", 8)).pack(padx=10, pady=(6, 10))
 
@@ -259,8 +260,7 @@ class App:
         from tkinter import filedialog
         from uremote.core import guion
         ruta = filedialog.askopenfilename(
-            title="abrir guion", filetypes=[("guiones", "*.txt")],
-            initialdir=str(Path.home() / "Downloads"))
+            title="abrir guion", filetypes=[("guiones", "*.txt")])
         if not ruta:
             return
         try:
@@ -311,7 +311,7 @@ class App:
                 fila = tk.Frame(dialogo, bg=theme.FONDO)
                 fila.pack(fill="x", padx=10, pady=2)
                 icono = "⏸" if e["pausada"] else "●"
-                tk.Label(fila, text=f"{icono} {e['hora']} {e['dias']} · "
+                tk.Label(fila, text=f"{icono} {agenda.describir(e)} · "
                          f"{e['modo']} · {e['accion']}",
                          bg=theme.FONDO, fg=theme.BTN_FG,
                          font=("Segoe UI", 9)).pack(side="left")
@@ -338,9 +338,47 @@ class App:
             tk.Checkbutton(forma, text="confirmar", variable=confirmar,
                            bg=theme.FONDO).pack(side="left")
 
+            def de_archivo():
+                """Elige un guion y una de sus instrucciones numeradas."""
+                from tkinter import filedialog
+                from uremote.core import guion
+                ruta = filedialog.askopenfilename(
+                    parent=dialogo, title="elegir guion",
+                    filetypes=[("guiones", "*.txt")])
+                if not ruta:
+                    return
+                try:
+                    entradas = guion.cargar(ruta)
+                except (OSError, ValueError) as e:
+                    self.eco(f"error: {e}", "err")
+                    return
+                sel = tk.Toplevel(dialogo)
+                sel.title(f"instrucción de {Path(ruta).name}")
+                sel.configure(bg=theme.FONDO)
+
+                def elegir(n):
+                    accion.delete(0, "end")
+                    accion.insert(0, f'guion "{ruta}" {n}')
+                    sel.destroy()
+                for n, e in sorted(entradas.items()):
+                    fila = tk.Frame(sel, bg=theme.FONDO)
+                    fila.pack(fill="x", padx=10, pady=3)
+                    ttk.Button(fila, text=str(n), width=3,
+                               command=lambda n=n: elegir(n)).pack(side="left")
+                    texto = f'"{e["frase"]}"'
+                    if e["nota"]:
+                        texto += f"\n{e['nota']}"
+                    tk.Label(fila, text=texto, bg=theme.FONDO, fg=theme.BTN_FG,
+                             justify="left", wraplength=380,
+                             font=("Segoe UI", 9)).pack(side="left", padx=8)
+            ttk.Button(forma, text="de archivo…",
+                       command=de_archivo).pack(side="left", padx=3)
+
             def agregar():
                 try:
-                    agenda.agregar(hora.get(), accion.get(), dias=dias.get(),
+                    agenda.agregar(accion.get(),
+                                   [{"tipo": "hora", "hora": hora.get(),
+                                     "dias": dias.get()}],
                                    tv=self._tv_actual(),
                                    modo="confirmar" if confirmar.get() else "solo")
                     self.eco(f"> uremote agenda agregar {hora.get()} "

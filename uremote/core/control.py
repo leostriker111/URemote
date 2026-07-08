@@ -51,6 +51,26 @@ def buscar_titulo(nombre_tv, titulo: str, app: str = "") -> str:
     return f"{nombre} <- buscar '{titulo}'" + (f" en {app}" if app else "")
 
 
+def frase(nombre_tv, texto: str) -> str:
+    """Frase en español: primero los comandos de control conocidos (intents);
+    si no es un comando, viaja cruda al buscador nativo de la tele."""
+    from uremote.core import intents
+    try:
+        return intents.interpretar(texto, nombre_tv)
+    except ValueError:
+        nombre, perfil, driver = _driver(nombre_tv)
+        try:
+            driver.frase(texto)
+        except NotImplementedError:
+            raise ValueError(
+                f"no entiendo '{texto}' y {perfil['_nombre']} no tiene "
+                "buscador propio (agregar intent en uremote/core/intents.py)")
+        grabando = devices.grabando()
+        if grabando:
+            macros.anotar(grabando, f"frase {texto}")
+        return f"{nombre} <- frase '{texto}' (la interpreta la tele)"
+
+
 def consultar(nombre_tv) -> dict:
     nombre, _, driver = _driver(nombre_tv)
     return state.fusionar_vivo(nombre, driver.consultar())
@@ -65,5 +85,7 @@ def ejecutar_linea(partes, nombre_tv=None):
         escribir(nombre_tv, " ".join(partes[1:]))
     elif partes[0] == "app":
         abrir_app(nombre_tv, *partes[1:4])
+    elif partes[0] == "frase":
+        frase(nombre_tv, " ".join(partes[1:]))
     else:
         raise ValueError(f"comando de macro desconocido: {partes[0]}")

@@ -38,6 +38,10 @@ class Driver(Base):
             params["provider-id"] = proveedor_id
         self._post("/search/browse?" + urllib.parse.urlencode(params))
 
+    def frase(self, texto):
+        # el buscador ECP es el mismo backend que usa el micrófono del control
+        self.buscar(texto)
+
     def lanzar(self, app_id, contenido="", tipo=""):
         ruta = f"/launch/{app_id}"
         params = {}

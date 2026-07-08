@@ -42,27 +42,100 @@
     "9": "KEYCODE_9"
   },
   "layout": [
-    {"titulo": "basico", "filas": [["power", "entrada", "ajustes", "mute"]]},
-    {"titulo": "navegacion", "filas": [
-      ["", "arriba", ""],
-      ["izq", "ok", "der"],
-      ["", "abajo", ""],
-      ["atras", "home", "menu"],
-      ["buscar", "info", "guia"]
-    ]},
-    {"titulo": "volumen / canal", "filas": [
-      ["vol+", "ch+"],
-      ["vol-", "ch-"]
-    ]},
-    {"titulo": "digitos", "filas": [
-      ["1", "2", "3"],
-      ["4", "5", "6"],
-      ["7", "8", "9"],
-      ["", "0", ""]
-    ]},
-    {"titulo": "media", "filas": [
-      ["rew", "play", "ff"],
-      ["ant", "stop", "sig"]
-    ]}
-  ]
+    {
+      "titulo": "basico",
+      "filas": [
+        [
+          "power",
+          "entrada",
+          "ajustes",
+          "mute"
+        ]
+      ]
+    },
+    {
+      "titulo": "navegacion",
+      "filas": [
+        [
+          "",
+          "arriba",
+          ""
+        ],
+        [
+          "izq",
+          "ok",
+          "der"
+        ],
+        [
+          "",
+          "abajo",
+          ""
+        ],
+        [
+          "atras",
+          "home",
+          "menu"
+        ],
+        [
+          "buscar",
+          "info",
+          "guia"
+        ]
+      ]
+    },
+    {
+      "titulo": "volumen / canal",
+      "filas": [
+        [
+          "vol+",
+          "ch+"
+        ],
+        [
+          "vol-",
+          "ch-"
+        ]
+      ]
+    },
+    {
+      "titulo": "digitos",
+      "filas": [
+        [
+          "1",
+          "2",
+          "3"
+        ],
+        [
+          "4",
+          "5",
+          "6"
+        ],
+        [
+          "7",
+          "8",
+          "9"
+        ],
+        [
+          "",
+          "0",
+          ""
+        ]
+      ]
+    },
+    {
+      "titulo": "media",
+      "filas": [
+        [
+          "rew",
+          "play",
+          "ff"
+        ],
+        [
+          "ant",
+          "stop",
+          "sig"
+        ]
+      ]
+    }
+  ],
+  "puerto": 5555
 }

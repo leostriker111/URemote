@@ -41,22 +41,84 @@
     "av": "InputAV1"
   },
   "layout": [
-    {"titulo": "basico", "filas": [["power", "mute", "info"]]},
-    {"titulo": "navegacion", "filas": [
-      ["", "arriba", ""],
-      ["izq", "ok", "der"],
-      ["", "abajo", ""],
-      ["atras", "home", "replay"],
-      ["buscar", "enter", "borrar"]
-    ]},
-    {"titulo": "volumen / canal", "filas": [
-      ["vol+", "ch+"],
-      ["vol-", "ch-"]
-    ]},
-    {"titulo": "entradas", "filas": [
-      ["antena", "av", ""],
-      ["hdmi1", "hdmi2", "hdmi3"]
-    ]},
-    {"titulo": "media", "filas": [["rew", "play", "ff"]]}
-  ]
+    {
+      "titulo": "basico",
+      "filas": [
+        [
+          "power",
+          "mute",
+          "info"
+        ]
+      ]
+    },
+    {
+      "titulo": "navegacion",
+      "filas": [
+        [
+          "",
+          "arriba",
+          ""
+        ],
+        [
+          "izq",
+          "ok",
+          "der"
+        ],
+        [
+          "",
+          "abajo",
+          ""
+        ],
+        [
+          "atras",
+          "home",
+          "replay"
+        ],
+        [
+          "buscar",
+          "enter",
+          "borrar"
+        ]
+      ]
+    },
+    {
+      "titulo": "volumen / canal",
+      "filas": [
+        [
+          "vol+",
+          "ch+"
+        ],
+        [
+          "vol-",
+          "ch-"
+        ]
+      ]
+    },
+    {
+      "titulo": "entradas",
+      "filas": [
+        [
+          "antena",
+          "av",
+          ""
+        ],
+        [
+          "hdmi1",
+          "hdmi2",
+          "hdmi3"
+        ]
+      ]
+    },
+    {
+      "titulo": "media",
+      "filas": [
+        [
+          "rew",
+          "play",
+          "ff"
+        ]
+      ]
+    }
+  ],
+  "puerto": 8060
 }

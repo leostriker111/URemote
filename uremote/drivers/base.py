@@ -25,3 +25,8 @@ class Base:
     def buscar(self, titulo: str, proveedor_id: str = ""):
         """Busca un título y lo reproduce si la marca puede."""
         raise ValueError(f"{self.perfil['_nombre']} no soporta buscar títulos")
+
+    def frase(self, texto: str):
+        """Manda la frase cruda al buscador/asistente nativo de la tele
+        (la tele la interpreta, como el micrófono de su control)."""
+        raise NotImplementedError

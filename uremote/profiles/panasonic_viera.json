@@ -52,30 +52,121 @@
     "rec": "NRC_REC-ONOFF"
   },
   "layout": [
-    {"titulo": "basico", "filas": [["power", "entrada", "tv", "mute"]]},
-    {"titulo": "navegacion", "filas": [
-      ["", "arriba", ""],
-      ["izq", "ok", "der"],
-      ["", "abajo", ""],
-      ["atras", "salir", "info"],
-      ["menu", "home", "apps"],
-      ["submenu", "guia", "aspecto"]
-    ]},
-    {"titulo": "volumen / canal", "filas": [
-      ["vol+", "ch+"],
-      ["vol-", "ch-"]
-    ]},
-    {"titulo": "digitos", "filas": [
-      ["1", "2", "3"],
-      ["4", "5", "6"],
-      ["7", "8", "9"],
-      ["subtitulos", "0", ""]
-    ]},
-    {"titulo": "colores", "filas": [["rojo", "verde", "amarillo", "azul"]]},
-    {"titulo": "media", "filas": [
-      ["rew", "play", "ff"],
-      ["ant", "pausa", "sig"],
-      ["rec", "stop", ""]
-    ]}
-  ]
+    {
+      "titulo": "basico",
+      "filas": [
+        [
+          "power",
+          "entrada",
+          "tv",
+          "mute"
+        ]
+      ]
+    },
+    {
+      "titulo": "navegacion",
+      "filas": [
+        [
+          "",
+          "arriba",
+          ""
+        ],
+        [
+          "izq",
+          "ok",
+          "der"
+        ],
+        [
+          "",
+          "abajo",
+          ""
+        ],
+        [
+          "atras",
+          "salir",
+          "info"
+        ],
+        [
+          "menu",
+          "home",
+          "apps"
+        ],
+        [
+          "submenu",
+          "guia",
+          "aspecto"
+        ]
+      ]
+    },
+    {
+      "titulo": "volumen / canal",
+      "filas": [
+        [
+          "vol+",
+          "ch+"
+        ],
+        [
+          "vol-",
+          "ch-"
+        ]
+      ]
+    },
+    {
+      "titulo": "digitos",
+      "filas": [
+        [
+          "1",
+          "2",
+          "3"
+        ],
+        [
+          "4",
+          "5",
+          "6"
+        ],
+        [
+          "7",
+          "8",
+          "9"
+        ],
+        [
+          "subtitulos",
+          "0",
+          ""
+        ]
+      ]
+    },
+    {
+      "titulo": "colores",
+      "filas": [
+        [
+          "rojo",
+          "verde",
+          "amarillo",
+          "azul"
+        ]
+      ]
+    },
+    {
+      "titulo": "media",
+      "filas": [
+        [
+          "rew",
+          "play",
+          "ff"
+        ],
+        [
+          "ant",
+          "pausa",
+          "sig"
+        ],
+        [
+          "rec",
+          "stop",
+          ""
+        ]
+      ]
+    }
+  ],
+  "puerto": 55000
 }

@@ -10,6 +10,19 @@
     "ok": "OK"
   },
   "layout": [
-    {"titulo": "prueba", "filas": [["power", "ok"], ["vol+", "vol-"]]}
-  ]
+    {
+      "titulo": "prueba",
+      "filas": [
+        [
+          "power",
+          "ok"
+        ],
+        [
+          "vol+",
+          "vol-"
+        ]
+      ]
+    }
+  ],
+  "puerto": 0
 }

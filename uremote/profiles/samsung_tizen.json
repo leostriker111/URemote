@@ -1,0 +1,140 @@
+{
+  "marca": "Samsung",
+  "nombre": "Samsung Tizen 2016+ (websocket)",
+  "driver": "samsung_tizen",
+  "manual_busqueda": "https://www.samsung.com/mx/support/",
+  "puerto": 8002,
+  "apps": {
+    "netflix": "11101200001",
+    "youtube": "111299001912"
+  },
+  "teclas": {
+    "power": "KEY_POWER",
+    "mute": "KEY_MUTE",
+    "info": "KEY_INFO",
+    "vol+": "KEY_VOLUP",
+    "vol-": "KEY_VOLDOWN",
+    "ch+": "KEY_CHUP",
+    "ch-": "KEY_CHDOWN",
+    "arriba": "KEY_UP",
+    "abajo": "KEY_DOWN",
+    "izq": "KEY_LEFT",
+    "der": "KEY_RIGHT",
+    "ok": "KEY_ENTER",
+    "atras": "KEY_RETURN",
+    "home": "KEY_HOME",
+    "menu": "KEY_MENU",
+    "salir": "KEY_EXIT",
+    "fuente": "KEY_SOURCE",
+    "play": "KEY_PLAY",
+    "pausa": "KEY_PAUSE",
+    "stop": "KEY_STOP",
+    "rew": "KEY_REWIND",
+    "ff": "KEY_FF",
+    "0": "KEY_0",
+    "1": "KEY_1",
+    "2": "KEY_2",
+    "3": "KEY_3",
+    "4": "KEY_4",
+    "5": "KEY_5",
+    "6": "KEY_6",
+    "7": "KEY_7",
+    "8": "KEY_8",
+    "9": "KEY_9"
+  },
+  "layout": [
+    {
+      "titulo": "basico",
+      "filas": [
+        [
+          "power",
+          "mute",
+          "info"
+        ]
+      ]
+    },
+    {
+      "titulo": "navegacion",
+      "filas": [
+        [
+          "",
+          "arriba",
+          ""
+        ],
+        [
+          "izq",
+          "ok",
+          "der"
+        ],
+        [
+          "",
+          "abajo",
+          ""
+        ],
+        [
+          "atras",
+          "home",
+          "menu"
+        ],
+        [
+          "salir",
+          "fuente",
+          ""
+        ]
+      ]
+    },
+    {
+      "titulo": "volumen / canal",
+      "filas": [
+        [
+          "vol+",
+          "ch+"
+        ],
+        [
+          "vol-",
+          "ch-"
+        ]
+      ]
+    },
+    {
+      "titulo": "numeros",
+      "filas": [
+        [
+          "1",
+          "2",
+          "3"
+        ],
+        [
+          "4",
+          "5",
+          "6"
+        ],
+        [
+          "7",
+          "8",
+          "9"
+        ],
+        [
+          "",
+          "0",
+          ""
+        ]
+      ]
+    },
+    {
+      "titulo": "media",
+      "filas": [
+        [
+          "rew",
+          "play",
+          "ff"
+        ],
+        [
+          "pausa",
+          "stop",
+          ""
+        ]
+      ]
+    }
+  ]
+}

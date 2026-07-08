@@ -55,6 +55,10 @@ def cmd_app(args):
     print(control.abrir_app(args.tv, args.app, args.contenido, args.tipo))
 
 
+def cmd_frase(args):
+    print(control.frase(args.tv, " ".join(args.palabras)))
+
+
 def cmd_teclas(args):
     if args.perfil:
         perfil = registry.cargar_perfil(args.perfil)
@@ -163,16 +167,34 @@ def cmd_agenda(args):
     if args.accion == "lista" or args.accion is None:
         for e in agenda.lista():
             estado = "⏸" if e["pausada"] else "●"
-            print(f"  {estado} [{e['id']}] {e['hora']} {e['dias']:<10} "
+            print(f"  {estado} [{e['id']}] {agenda.describir(e):<22} "
                   f"{e['modo']:<9} {e['accion']}")
         if not agenda.lista():
             print("agenda vacía; usa: uremote agenda agregar HH:MM --hacer \"...\"")
+    elif args.accion == "condiciones":
+        from uremote import condiciones
+        for tipo in condiciones.lista():
+            print(f"  {tipo:<14} {condiciones.cargar(tipo).AYUDA}")
     elif args.accion == "agregar":
-        nid = agenda.agregar(args.hora, args.hacer, dias=args.dias, tv=args.tv,
+        conds = []
+        if args.hora:
+            conds.append({"tipo": "hora", "hora": args.hora, "dias": args.dias})
+        for cu in args.cuando or []:
+            partes = cu.split()
+            c = {"tipo": partes[0]}
+            for kv in partes[1:]:
+                k, v = kv.split("=", 1)
+                c[k] = v
+            conds.append(c)
+        if not conds:
+            raise ValueError("di una hora o al menos un --cuando "
+                             "(ver: uremote agenda condiciones)")
+        nid = agenda.agregar(args.hacer, conds, tv=args.tv,
                              modo="confirmar" if args.confirmar else "solo",
                              anunciar=args.anunciar,
                              notificar=not args.sin_notificar)
-        print(f"programada [{nid}]: {args.hora} {args.dias} -> {args.hacer}")
+        print(f"programada [{nid}]: {agenda.describir({'condiciones': conds})} "
+              f"-> {args.hacer}")
     elif args.accion == "quitar":
         agenda.quitar(args.hora)  # aquí el 2o arg es el id
         print("quitada")
@@ -193,6 +215,11 @@ def cmd_agenda(args):
 def cmd_voz(args):
     from voz.__main__ import main as voz_main
     voz_main(args.resto or ["-h"])
+
+
+def cmd_confirmar(args):
+    from uremote.core import notifica
+    notifica.responder(args.url)
 
 
 def cmd_gui(args):
@@ -249,6 +276,11 @@ def main():
     p.add_argument("--tipo", default="", help="movie | series | episode")
     p.add_argument("--tv")
 
+    p = sub.add_parser("frase", help="frase en español: comando conocido o "
+                       "viaja cruda al buscador de la tele")
+    p.add_argument("palabras", nargs="+")
+    p.add_argument("--tv")
+
     p = sub.add_parser("teclas", help="lista las teclas del perfil activo")
     p.add_argument("--tv")
     p.add_argument("--perfil")
@@ -279,13 +311,16 @@ def main():
     p.add_argument("numero", nargs="?", type=int, help="vacío = listar el menú")
     p.add_argument("--tv")
 
-    p = sub.add_parser("agenda", help="programa comandos por hora/días")
+    p = sub.add_parser("agenda", help="programa comandos por condiciones")
     p.add_argument("accion", nargs="?",
                    choices=["lista", "agregar", "quitar", "pausar", "tick",
-                            "instalar", "desinstalar", "log"])
+                            "instalar", "desinstalar", "log", "condiciones"])
     p.add_argument("hora", nargs="?", help="HH:MM (o id en quitar/pausar)")
     p.add_argument("--hacer", help='frase o "guion archivo N"')
     p.add_argument("--dias", default="diario", help="diario | lun-vie | sab,dom")
+    p.add_argument("--cuando", action="append",
+                   help='condición extra encadenada con Y: "arranque", '
+                        '"tv_encendida", "hora hora=08:00" (repetible)')
     p.add_argument("--tv")
     p.add_argument("--confirmar", action="store_true",
                    help="pedir ventanita antes de ejecutar (60s o se cancela)")
@@ -294,6 +329,9 @@ def main():
 
     p = sub.add_parser("voz", help="control por voz y lectura de txt (ver: uremote voz -h)")
     p.add_argument("resto", nargs=argparse.REMAINDER)
+
+    p = sub.add_parser("confirmar")  # interno: handler del protocolo uremote://
+    p.add_argument("url")
 
     sub.add_parser("gui", help="abre el control gráfico")
     sub.add_parser("selftest", help="prueba end-to-end con driver falso")
