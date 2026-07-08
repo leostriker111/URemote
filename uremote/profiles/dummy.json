@@ -1,0 +1,15 @@
+{
+  "marca": "Dummy",
+  "nombre": "TV falsa para pruebas",
+  "driver": "dummy",
+  "manual_busqueda": "",
+  "teclas": {
+    "power": "POWER",
+    "vol+": "VOLUP",
+    "vol-": "VOLDOWN",
+    "ok": "OK"
+  },
+  "layout": [
+    {"titulo": "prueba", "filas": [["power", "ok"], ["vol+", "vol-"]]}
+  ]
+}

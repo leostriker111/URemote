@@ -1,0 +1,68 @@
+{
+  "marca": "Android TV",
+  "nombre": "Android TV / Google TV (adb)",
+  "driver": "androidtv",
+  "manual_busqueda": "android tv remote guide",
+  "manual_portal": "https://support.google.com/googletv",
+  "teclas": {
+    "power": "KEYCODE_POWER",
+    "mute": "KEYCODE_VOLUME_MUTE",
+    "vol+": "KEYCODE_VOLUME_UP",
+    "vol-": "KEYCODE_VOLUME_DOWN",
+    "ch+": "KEYCODE_CHANNEL_UP",
+    "ch-": "KEYCODE_CHANNEL_DOWN",
+    "arriba": "KEYCODE_DPAD_UP",
+    "abajo": "KEYCODE_DPAD_DOWN",
+    "izq": "KEYCODE_DPAD_LEFT",
+    "der": "KEYCODE_DPAD_RIGHT",
+    "ok": "KEYCODE_DPAD_CENTER",
+    "atras": "KEYCODE_BACK",
+    "home": "KEYCODE_HOME",
+    "menu": "KEYCODE_MENU",
+    "info": "KEYCODE_INFO",
+    "guia": "KEYCODE_GUIDE",
+    "ajustes": "KEYCODE_SETTINGS",
+    "buscar": "KEYCODE_SEARCH",
+    "entrada": "KEYCODE_TV_INPUT",
+    "play": "KEYCODE_MEDIA_PLAY_PAUSE",
+    "stop": "KEYCODE_MEDIA_STOP",
+    "rew": "KEYCODE_MEDIA_REWIND",
+    "ff": "KEYCODE_MEDIA_FAST_FORWARD",
+    "ant": "KEYCODE_MEDIA_PREVIOUS",
+    "sig": "KEYCODE_MEDIA_NEXT",
+    "0": "KEYCODE_0",
+    "1": "KEYCODE_1",
+    "2": "KEYCODE_2",
+    "3": "KEYCODE_3",
+    "4": "KEYCODE_4",
+    "5": "KEYCODE_5",
+    "6": "KEYCODE_6",
+    "7": "KEYCODE_7",
+    "8": "KEYCODE_8",
+    "9": "KEYCODE_9"
+  },
+  "layout": [
+    {"titulo": "basico", "filas": [["power", "entrada", "ajustes", "mute"]]},
+    {"titulo": "navegacion", "filas": [
+      ["", "arriba", ""],
+      ["izq", "ok", "der"],
+      ["", "abajo", ""],
+      ["atras", "home", "menu"],
+      ["buscar", "info", "guia"]
+    ]},
+    {"titulo": "volumen / canal", "filas": [
+      ["vol+", "ch+"],
+      ["vol-", "ch-"]
+    ]},
+    {"titulo": "digitos", "filas": [
+      ["1", "2", "3"],
+      ["4", "5", "6"],
+      ["7", "8", "9"],
+      ["", "0", ""]
+    ]},
+    {"titulo": "media", "filas": [
+      ["rew", "play", "ff"],
+      ["ant", "stop", "sig"]
+    ]}
+  ]
+}

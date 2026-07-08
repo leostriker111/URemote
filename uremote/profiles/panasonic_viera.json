@@ -1,0 +1,81 @@
+{
+  "marca": "Panasonic",
+  "nombre": "Panasonic Viera (2011-2017, ej. TC-39AS600)",
+  "driver": "panasonic_viera",
+  "manual_busqueda": "panasonic TC-39AS600U operating instructions",
+  "manual_portal": "https://www.csportal.panasonic-la.com/sys//generales/Descargas.aspx?t1=M&u=mx",
+  "teclas": {
+    "power": "NRC_POWER-ONOFF",
+    "mute": "NRC_MUTE-ONOFF",
+    "vol+": "NRC_VOLUP-ONOFF",
+    "vol-": "NRC_VOLDOWN-ONOFF",
+    "ch+": "NRC_CH_UP-ONOFF",
+    "ch-": "NRC_CH_DOWN-ONOFF",
+    "arriba": "NRC_UP-ONOFF",
+    "abajo": "NRC_DOWN-ONOFF",
+    "izq": "NRC_LEFT-ONOFF",
+    "der": "NRC_RIGHT-ONOFF",
+    "ok": "NRC_ENTER-ONOFF",
+    "atras": "NRC_RETURN-ONOFF",
+    "salir": "NRC_CANCEL-ONOFF",
+    "menu": "NRC_MENU-ONOFF",
+    "submenu": "NRC_SUBMENU-ONOFF",
+    "home": "NRC_HOME-ONOFF",
+    "apps": "NRC_APPS-ONOFF",
+    "entrada": "NRC_CHG_INPUT-ONOFF",
+    "tv": "NRC_TV-ONOFF",
+    "info": "NRC_INFO-ONOFF",
+    "guia": "NRC_EPG-ONOFF",
+    "subtitulos": "NRC_STTL-ONOFF",
+    "aspecto": "NRC_DISP_MODE-ONOFF",
+    "rojo": "NRC_RED-ONOFF",
+    "verde": "NRC_GREEN-ONOFF",
+    "amarillo": "NRC_YELLOW-ONOFF",
+    "azul": "NRC_BLUE-ONOFF",
+    "0": "NRC_D0-ONOFF",
+    "1": "NRC_D1-ONOFF",
+    "2": "NRC_D2-ONOFF",
+    "3": "NRC_D3-ONOFF",
+    "4": "NRC_D4-ONOFF",
+    "5": "NRC_D5-ONOFF",
+    "6": "NRC_D6-ONOFF",
+    "7": "NRC_D7-ONOFF",
+    "8": "NRC_D8-ONOFF",
+    "9": "NRC_D9-ONOFF",
+    "play": "NRC_PLAY-ONOFF",
+    "pausa": "NRC_PAUSE-ONOFF",
+    "stop": "NRC_STOP-ONOFF",
+    "rew": "NRC_REW-ONOFF",
+    "ff": "NRC_FF-ONOFF",
+    "ant": "NRC_SKIP_PREV-ONOFF",
+    "sig": "NRC_SKIP_NEXT-ONOFF",
+    "rec": "NRC_REC-ONOFF"
+  },
+  "layout": [
+    {"titulo": "basico", "filas": [["power", "entrada", "tv", "mute"]]},
+    {"titulo": "navegacion", "filas": [
+      ["", "arriba", ""],
+      ["izq", "ok", "der"],
+      ["", "abajo", ""],
+      ["atras", "salir", "info"],
+      ["menu", "home", "apps"],
+      ["submenu", "guia", "aspecto"]
+    ]},
+    {"titulo": "volumen / canal", "filas": [
+      ["vol+", "ch+"],
+      ["vol-", "ch-"]
+    ]},
+    {"titulo": "digitos", "filas": [
+      ["1", "2", "3"],
+      ["4", "5", "6"],
+      ["7", "8", "9"],
+      ["subtitulos", "0", ""]
+    ]},
+    {"titulo": "colores", "filas": [["rojo", "verde", "amarillo", "azul"]]},
+    {"titulo": "media", "filas": [
+      ["rew", "play", "ff"],
+      ["ant", "pausa", "sig"],
+      ["rec", "stop", ""]
+    ]}
+  ]
+}

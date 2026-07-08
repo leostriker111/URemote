@@ -1,0 +1,29 @@
+name: release
+on:
+  push:
+    tags: ["v*"]
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyinstaller build
+      - name: exe
+        run: >
+          pyinstaller --onefile --name uremote
+          --add-data "uremote/profiles;uremote/profiles"
+          --collect-submodules uremote.drivers
+          launcher.py
+      - name: installer
+        run: iscc installer/uremote.iss
+      - name: wheel
+        run: python -m build --wheel
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/uremote.exe
+            installer/Output/uremote-setup.exe
+            dist/*.whl

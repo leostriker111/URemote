@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+build/
+dist/
+*.egg-info/
+# datos locales del usuario
+config/
+estados/
+macros/
+manuales/

@@ -1,0 +1,62 @@
+{
+  "marca": "Roku",
+  "nombre": "Roku / Roku TV (ECP)",
+  "driver": "roku",
+  "manual_busqueda": "https://support.roku.com",
+  "apps": {
+    "netflix": "12",
+    "youtube": "837",
+    "prime": "13",
+    "disney": "291097",
+    "hbo": "61322",
+    "spotify": "22297",
+    "appletv": "551012"
+  },
+  "teclas": {
+    "power": "Power",
+    "mute": "VolumeMute",
+    "vol+": "VolumeUp",
+    "vol-": "VolumeDown",
+    "ch+": "ChannelUp",
+    "ch-": "ChannelDown",
+    "arriba": "Up",
+    "abajo": "Down",
+    "izq": "Left",
+    "der": "Right",
+    "ok": "Select",
+    "atras": "Back",
+    "home": "Home",
+    "info": "Info",
+    "replay": "InstantReplay",
+    "buscar": "Search",
+    "enter": "Enter",
+    "borrar": "Backspace",
+    "play": "Play",
+    "rew": "Rev",
+    "ff": "Fwd",
+    "antena": "InputTuner",
+    "hdmi1": "InputHDMI1",
+    "hdmi2": "InputHDMI2",
+    "hdmi3": "InputHDMI3",
+    "av": "InputAV1"
+  },
+  "layout": [
+    {"titulo": "basico", "filas": [["power", "mute", "info"]]},
+    {"titulo": "navegacion", "filas": [
+      ["", "arriba", ""],
+      ["izq", "ok", "der"],
+      ["", "abajo", ""],
+      ["atras", "home", "replay"],
+      ["buscar", "enter", "borrar"]
+    ]},
+    {"titulo": "volumen / canal", "filas": [
+      ["vol+", "ch+"],
+      ["vol-", "ch-"]
+    ]},
+    {"titulo": "entradas", "filas": [
+      ["antena", "av", ""],
+      ["hdmi1", "hdmi2", "hdmi3"]
+    ]},
+    {"titulo": "media", "filas": [["rew", "play", "ff"]]}
+  ]
+}
