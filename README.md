@@ -24,13 +24,6 @@ profile**, so you only ever see the ones it understands.
 
 ---
 
-```bash
-uremote descubrir                 # find the TVs on your network and say what they are
-uremote mandar vol+ ch+ ok        # send keys in a chain
-uremote app netflix               # open apps (deep-linking to titles on Roku)
-uremote gui                       # the graphical remote
-```
-
 ## What it is
 
 A **command-line tool** and a **graphical remote**, the same program either way.
@@ -40,6 +33,15 @@ account, no phone app in the middle, and nothing leaves your LAN.
 The design idea is that **a TV is a profile, not a special case**. Adding a
 television means writing one JSON file with its keys and its button layout. Only
 if the protocol itself is new do you write code, and that's about fifty lines.
+
+In practice, it looks like this:
+
+```bash
+uremote descubrir                 # find the TVs on your network and say what they are
+uremote mandar vol+ ch+ ok        # send keys in a chain
+uremote app netflix               # open apps (deep-linking to titles on Roku)
+uremote gui                       # the graphical remote
+```
 
 ## Purpose and scope
 
@@ -225,6 +227,12 @@ The most valuable contributions, in order:
 2. **New brands.** Vizio, Hisense, Chromecast. Mostly one JSON file each.
 3. **Voice control on Linux and macOS** — the engine in `voz/motor.py` is the only
    Windows-specific part of the project.
+
+**And one bigger idea we're chewing on:** a **browser extension**, so that driving
+the TV isn't only a terminal thing — pause what's on the telly from the same tab
+you're watching something else in. It isn't started, the shape isn't decided, and
+**we'd genuinely rather hear opinions before writing any of it.** If you have a
+view on what that should look like, open an issue and say so.
 
 ### What it's made of
 

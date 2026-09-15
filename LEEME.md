@@ -24,13 +24,6 @@ propia tele**, así que sólo ves los que entiende.
 
 ---
 
-```bash
-uremote descubrir                 # encuentra las TVs de tu red y te dice que son
-uremote mandar vol+ ch+ ok        # manda teclas en cadena
-uremote app netflix               # abre apps (con deep-link a titulos en Roku)
-uremote gui                       # el control grafico
-```
-
 ## Qué es
 
 Una **herramienta de línea de comandos** y un **control gráfico**, el mismo
@@ -42,6 +35,15 @@ La idea de diseño es que **una tele es un perfil, no un caso especial**. Agrega
 una televisión significa escribir un archivo JSON con sus teclas y su acomodo de
 botones. Sólo si el protocolo es nuevo escribes código, y son como cincuenta
 líneas.
+
+En la práctica se ve así:
+
+```bash
+uremote descubrir                 # encuentra las TVs de tu red y te dice que son
+uremote mandar vol+ ch+ ok        # manda teclas en cadena
+uremote app netflix               # abre apps (con deep-link a titulos en Roku)
+uremote gui                       # el control grafico
+```
 
 ## Propósito y alcance
 
@@ -229,6 +231,13 @@ Lo más valioso, en orden:
 2. **Marcas nuevas.** Vizio, Hisense, Chromecast. Casi siempre un archivo JSON.
 3. **Control por voz en Linux y macOS** — el motor de `voz/motor.py` es la única
    parte del proyecto que depende de Windows.
+
+**Y una idea más grande que estamos masticando:** una **extensión de navegador**,
+para que manejar la tele no sea sólo cosa de terminal — pausar lo que está en la
+pantalla grande desde la misma pestaña donde estás viendo otra cosa. No está
+empezada, no está decidida la forma, y **de verdad preferiríamos oír opiniones
+antes de escribir nada.** Si tienes una idea de cómo debería ser, abre un issue y
+dila.
 
 ### De qué está hecho
 
