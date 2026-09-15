@@ -9,3 +9,7 @@ estados/
 macros/
 manuales/
 .specstory/
+
+# Salidas de ejecutarlo: no son del proyecto.
+*.log
+agenda.log
