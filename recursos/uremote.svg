@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256" role="img" aria-label="URemote">
+  <rect width="256" height="256" rx="56" fill="#eef2f5"/>
+  <rect x="34" y="96" width="188" height="116" rx="16" fill="#ffffff" stroke="#1b2430" stroke-width="12"/>
+  <path d="M96 212 h64" stroke="#1b2430" stroke-width="12" stroke-linecap="round"/>
+  <g fill="none" stroke="#0e9f6e" stroke-width="13" stroke-linecap="round">
+    <path d="M100 74 a40 40 0 0 1 56 0"/>
+    <path d="M78 52 a72 72 0 0 1 100 0"/>
+  </g>
+  <circle cx="128" cy="76" r="9" fill="#0e9f6e"/>
+  <g fill="#c3ccd6">
+    <rect x="62" y="124" width="60" height="10" rx="5"/>
+    <rect x="62" y="146" width="42" height="10" rx="5"/>
+  </g>
+  <circle cx="178" cy="172" r="16" fill="#e9a13b" stroke="#1b2430" stroke-width="8"/>
+</svg>
